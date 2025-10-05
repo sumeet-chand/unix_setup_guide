@@ -85,13 +85,16 @@ Why Linux is Used in Business & Home Environments: Like Windows, Linux is widely
 The following commands all the Debian (Which includes Ubuntu) distrobution commands.
 However the same principal can be applied to many other distros 
 
-1. (OPTIONAL FOR VIRTUAL BOX USERS) - CREATE ADMINS
+1. ADD LOCAL USER TO ADMINS AND LOCKDOWN ROOT USER LOGON (ONLY SU - root)
 ```bash
 su
-usermod -aG sudo vboxuser # or wheel group
-cat /etc/sudoers
+usermod -aG sudo USER # or wheel group
 exit
 sudo reboot # necessary to reset admin cache
+groups USER # should show sudo now
+sudo passwd -l root # Lock root account - prevents password login
+# Test that you can't su to root anymore if you get authentication failed even though password is right root is locked down
+su - root
 ```
 
 2. UPDATE
