@@ -88,10 +88,10 @@ However the same principal can be applied to many other distros
 1. ADD LOCAL USER TO ADMINS AND LOCKDOWN ROOT USER LOGON (ONLY SU - root)
 ```bash
 su
-usermod -aG sudo USER # or wheel group
+usermod -aG sudo $USER # or wheel group
 exit
 sudo reboot # necessary to reset admin cache
-groups USER # should show sudo now
+groups $USER # should show sudo now
 sudo passwd -l root # Lock root account - prevents password login
 # Test that you can't su to root anymore if you get authentication failed even though password is right root is locked down
 su - root
@@ -140,7 +140,12 @@ testusr@ubuntu Documents % setopt interactive_comments # zsh shell only
 sudo apt install lolcat, git, flatpak
 ```
 
-9. OPTIONAL - SETUP C/C++ COMPILER
+9. CLEANUP
+```bash
+sudo snap remove firefox
+```
+
+10. OPTIONAL - SETUP C/C++ COMPILER
 ```bash
 # 1. INSTALL USEFULL PACKAGES 
 sudo apt install -y build-essential g++ libboost-all-dev libcurl4-gnutls-dev 
@@ -153,9 +158,11 @@ gcc -o test test.c
 ./test
 ```
 
-10. CLEANUP
+11. OPTIONAL - SETUP ANDROID DEV ENVIRONMENT FOR APP DEV/FLASHING OS
 ```bash
-sudo snap remove firefox
+sudo apt install android-tools-adb android-tools-fastboot
+# ensure the user is in plugdev otherwise add them with: usermod -aG plugdev $USER
+groups $USER
 ```
 
 ___________________________________________________________________________
